@@ -1,0 +1,30 @@
+#Python Program to illustrate the method of Gradient Descent algorithm(which finds the coefficients and intercept for the best fit line or Regeression function)
+
+import numpy as np
+
+def gradient_descent(x,y):
+    m_curr = 0
+    b_curr = 0
+    n = len(x)
+    lr = 0.03
+    iteration = 1000
+    for i in range(iteration):
+        y_pred = m_curr * x + b_curr
+
+        #cost = (1/n)*sum([val**2 for val in (y-y_pred)])   //Alt method to calculate cost function
+
+        s = 0
+        for j in range(len(y)):
+            s = s + (y[j] - y_pred[j])**2
+        cost = (1 / n)*s
+
+        m_der = -(2 / n) *sum(x*(y - y_pred))
+        b_der = -(2 / n) *sum(y-y_pred)
+        m_curr = m_curr-lr*m_der
+        b_curr = b_curr-lr*b_der
+        print("iteration : %.3f" %i, "\tm : %.3f" %m_curr, "\tb : %.3f" %b_curr, "\tcost func : %.3f" %cost)
+
+x = np.array([1,2,3,4,5])
+y = np.array([5,7,9,11,13])
+
+gradient_descent(x,y)
